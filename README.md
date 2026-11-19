@@ -65,14 +65,37 @@ Not covered in this lab: MFA push fatigue (T1621), impossible travel, and passwo
 
 ## 6. Evidence (System Log screenshots)
 
-Cropped to the relevant rows. Source IPs are redacted.
+Cropped to the relevant rows. Source IPs are redacted. Newest events are at the top of each image.
 
-**Alice: 5 failed logins, then success and passkey enrollment** (newest first)
+### 1. Elise: password guessing and lockout
+About 9 failed attempts in ~10 s, then "Max sign in attempts exceeded" (LOCKED_OUT) at 04:29:34.
 
-![Alice: success after failures](evidence/02-alice-failures-then-success.png)
+![Elise brute force and lockout](evidence/01-elise-bruteforce-lockout.png)
 
-![Alice: first failed attempts](evidence/03-alice-first-failures.png)
+Attempts continue after the lock and all fail with LOCKED_OUT:
 
-**API token create and revoke** (step-up check, create at 04:53:35, revoke at 04:54:28)
+![Elise attempts after lock](evidence/02-elise-attempts-after-lock.png)
 
-![API token create and revoke](evidence/06-api-token-create-revoke.png)
+### 2. Alice: 5 failed logins, then success and passkey enrollment
+
+![Alice failures then success](evidence/03-alice-failures-then-success.png)
+
+![Alice first failed attempts](evidence/04-alice-first-failures.png)
+
+### 3. Dave: factor enrollment, admin reset, and the passkey that survived
+Okta Verify enrolled at 04:47:36, admin reset at 04:49:11, sessions revoked at 04:49:27.
+
+![Dave factor enrollment and reset](evidence/05-dave-factor-enroll-and-reset.png)
+
+Dave still authenticated with his iCloud Keychain passkey at 04:49:56 after the reset:
+
+![Dave passkey after reset](evidence/06-dave-passkey-after-reset.png)
+
+### 4. Carol: Super Administrator role granted
+
+![Carol admin grant](evidence/07-carol-admin-grant.png)
+
+### 5. API token create and revoke
+Step-up challenge, create at 04:53:35, revoke at 04:54:28.
+
+![API token create and revoke](evidence/08-api-token-create-revoke.png)
